@@ -1,25 +1,40 @@
 pipeline {
     agent any
-
+ 
+    options {
+        skipDefaultCheckout(true)
+    }
+ 
     stages {
-        stage('Building') {
+        stage('Checkout SCM') {
             steps {
-              sh 'pip install -r requirements.txt'
+                echo '> Checking out the source control ...'
+                checkout scm
             }
         }
-        stage('Testing') {
+        stage('Git Pull') {
             steps {
-              sh 'python3 -m unittest'
+                echo '> Pulling the code from GitHub repository ...'
+                sh 'git remote update && git checkout develop && git pull origin develop'
             }
         }
-        stage('Deploying'){
+        stage('Docker Up') {
             steps {
-              sh 'docker build -t <your_image_name> .'
-              sh 'docker run -d -p 5000:5000 <your_image_name>'
+                echo '> Building the docker containers ...'
+                sh 'cd docker && cd ci && make build'
+            }
+        }
+        stage('Composer Install') {
+            steps {
+                echo '> Building the application within the container ...'
+                sh 'cd docker && cd ci && make composer'
+            }
+        }
+        stage('Test') {
+            steps {
+                echo '> Running the application tests ...'
+                sh 'cd docker && cd ci && make test'
             }
         }
     }
-  triggers{
-       githubPush()
-  }
 }
