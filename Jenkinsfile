@@ -1,40 +1,49 @@
+Tao — 昨天11:25
 pipeline {
     agent any
- 
-    options {
-        skipDefaultCheckout(true)
+    environment {
+        DOCKERHUB_CREDENTIALS = credentials('dockerhubpwd')
     }
- 
+
+
     stages {
-        stage('Checkout SCM') {
+        stage('Building') {
             steps {
-                echo '> Checking out the source control ...'
-                checkout scm
+              sh 'pip3 install -r requirements.txt'
             }
         }
-        stage('Git Pull') {
+        stage('Testing') {
             steps {
-                echo '> Pulling the code from GitHub repository ...'
-                sh 'git remote update && git checkout develop && git pull origin develop'
+              sh 'python3 test_main.py '
             }
         }
-        stage('Docker Up') {
+        stage('Deploying'){
             steps {
-                echo '> Building the docker containers ...'
-                sh 'cd docker && cd ci && make build'
+              sh 'docker build -t jingtaoqu/jenkins:latest .'
             }
         }
-        stage('Composer Install') {
+        stage('Running'){
             steps {
-                echo '> Building the application within the container ...'
-                sh 'cd docker && cd ci && make composer'
+              sh 'docker run -d -p 8003:8080 jingtaoqu/jenkins:latest'
             }
         }
-        stage('Test') {
-            steps {
-                echo '> Running the application tests ...'
-                sh 'cd docker && cd ci && make test'
+        stage('Login') {
+
+        steps {
+            sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
             }
+        }
+
+        stage('Push image to Hub'){
+            steps{
+            sh 'docker push jingtaoqu/jenkins:latest'
+        }
         }
     }
+
+  post{
+      always{
+         sh 'docker logout'
+      }
+  }
 }
