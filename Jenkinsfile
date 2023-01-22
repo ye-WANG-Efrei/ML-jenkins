@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment {
-        DOCKERHUB_CREDENTIALS = credentials('JenkinsToDocker')
+        DOCKERHUB_CREDENTIALS = credentials('JenkinsDocker_UP')
     }
 
 
