@@ -8,7 +8,7 @@ pipeline {
     stages {
         stage('Building') {
             steps {
-              sh 'pip3 install -r requirements.txt'
+              bat 'pip3 install -r requirements.txt'
             }
         }
         stage('Testing') {
