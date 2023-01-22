@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment {
-        DOCKERHUB_CREDENTIALS = credentials('JenkinsToDocker')
+        DOCKERHUB_CREDENTIALS = credentials('docker_hub')
     }
 
 
@@ -41,8 +41,8 @@ pipeline {
                          
         stage('Login DockerHub') {
             steps {
-                bat 'docker login -u wangyeee -p Wodemima0105.'
-                /* bat 'echo %DOCKERHUB_CREDENTIALS_PSW%|docker login -u %DOCKERHUB_CREDENTIALS_USR% --password-stdin' */
+                /*bat 'docker login -u wangyeee -p Wodemima0105.'*/
+                sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
                 }
         }
 
