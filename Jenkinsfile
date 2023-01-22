@@ -8,6 +8,7 @@ pipeline {
     stages {
         stage('Building') {
             steps {
+              bat 'C:\Python310\python.exe -m pip install --upgrade pip'
               bat 'pip3 install -r requirements.txt'
             }
         }
