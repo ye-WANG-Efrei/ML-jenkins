@@ -48,8 +48,8 @@ pipeline {
 
         stage('Push image to Hub'){
             steps{
-
-                bat 'docker push jenkins:latest'
+                bat 'docker tag jenkins:latest wangyeee/jenkins:latest'
+                bat 'docker push wangyeee/jenkins:latest'
 
             }
         }
