@@ -13,12 +13,12 @@ pipeline {
         }
         stage('Testing') {
             steps {
-              bat 'python3 Archive/test_main.py '
+              bat 'python Archive/test_main.py '
             }
         }
         stage('Build_docker_image'){
             steps {
-              bat 'docker build -t jenkins:latest .'
+              bat 'docker build - < Archive/Dockerfile:latest .'
             }
         }
         stage('Running'){
@@ -29,20 +29,20 @@ pipeline {
         stage('Login DockerHub') {
 
         steps {
-            sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+            bat 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
             }
         }
 
         stage('Push image to Hub'){
             steps{
-            sh 'docker push jenkins:latest'
+            bat 'docker push jenkins:latest'
         }
         }
     }
 
   post{
       always{
-         sh 'docker logout'
+         bat 'docker logout'
       }
   }
 }
