@@ -9,7 +9,7 @@ pipeline {
         stage('Checkout') {
             steps{
                 sshagent(credentials : ['JenkinsSSH']){
-                    bat 'git branch  --delete staging'
+                    sh 'git branch  --delete staging'
                     bat 'git branch staging'
                     bat 'git checkout staging'
                     bat 'git push origin staging'
