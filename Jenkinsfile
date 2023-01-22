@@ -16,7 +16,7 @@ pipeline {
               bat 'python3 Archive/test_main.py '
             }
         }
-        stage('Deploying'){
+        stage('Build_docker_image'){
             steps {
               bat 'docker build -t jenkins:latest .'
             }
@@ -26,7 +26,7 @@ pipeline {
               bat 'docker run -d -p 8003:8080 jenkins:latest'
             }
         }
-        stage('Login') {
+        stage('Login DockerHub') {
 
         steps {
             sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
