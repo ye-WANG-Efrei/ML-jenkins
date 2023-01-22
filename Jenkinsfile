@@ -8,13 +8,12 @@ pipeline {
     stages {
         stage('Building') {
             steps {
-              bat 'C:\Python310\python.exe -m pip install --upgrade pip'
-              bat 'pip3 install -r requirements.txt'
+              bat 'pip3 install -r Archive\requirements.txt'
             }
         }
         stage('Testing') {
             steps {
-              sh 'python3 test_main.py '
+              sh 'python3 Archive\test_main.py '
             }
         }
         stage('Deploying'){
