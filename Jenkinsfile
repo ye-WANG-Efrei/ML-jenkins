@@ -58,7 +58,7 @@ pipeline {
             steps{
                 sshagent(credentials : ['JenkinsSSH']){
                     bat """
-                    git push -d staging
+                    git push origin -d staging
                     echo "deleted staging"
                     """
                 }
