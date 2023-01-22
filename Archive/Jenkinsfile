@@ -18,12 +18,12 @@ pipeline {
         }
         stage('Deploying'){
             steps {
-              sh 'docker build -t jingtaoqu/jenkins:latest .'
+              sh 'docker build -t docker push wangyeee/github_jenkins_dokcer:latest .'
             }
         }
         stage('Running'){
             steps {
-              sh 'docker run -d -p 8003:8080 jingtaoqu/jenkins:latest'
+              sh 'docker run -d -p 8003:8080 docker push wangyeee/github_jenkins_dokcer:latest'
             }
         }
         stage('Login') {
@@ -35,7 +35,7 @@ pipeline {
 
         stage('Push image to Hub'){
             steps{
-            sh 'docker push jingtaoqu/jenkins:latest'
+            sh 'docker push docker push wangyeee/github_jenkins_dokcer:latest'
         }
         }
     }
