@@ -8,7 +8,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps{
-                sshagent(credentials ; ['']{
+                sshagent(credentials : ['JenkinsSSH']{
                     bat 'git branch  --delete staging'
                     bat 'git branch staging'
                     bat 'git checkout staging'
@@ -53,7 +53,7 @@ pipeline {
                          
         stage ('Cleanup'{
             steps{
-                sshagent(credentials : ['']){
+                sshagent(credentials : ['JenkinsSSH']){
                     bat """
                     git push -d staging
                     echo "deleted staging"
