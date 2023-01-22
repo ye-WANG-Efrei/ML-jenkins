@@ -18,7 +18,7 @@ pipeline {
         }
         stage('Build_docker_image'){
             steps {
-              bat 'docker build -t jenkins:latest Archive/Dockerfile'
+              bat 'docker build -t jenkins:latest Archive/'
             }
         }
         stage('Running'){
