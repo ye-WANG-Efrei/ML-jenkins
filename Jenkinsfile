@@ -39,12 +39,14 @@ pipeline {
             }
         }
                          
-        /*stage('Login DockerHub') {
+        /*
+        stage('Login DockerHub') {
             steps {
                 
                 /* bat 'echo %DOCKERHUB_CREDENTIALS_PSW%|docker login -u %DOCKERHUB_CREDENTIALS_USR% --password-stdin' */
                 }
-        }*/
+        }
+        */
 
         stage('Push image to Hub'){
             steps{
