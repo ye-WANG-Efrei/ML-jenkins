@@ -8,12 +8,12 @@ pipeline {
     stages {
         stage('Building') {
             steps {
-              bat 'pip3 install -r Archive\requirements.txt'
+              bat 'pip3 install -r Archive/requirements.txt'
             }
         }
         stage('Testing') {
             steps {
-              sh 'python3 Archive\test_main.py '
+              sh 'python3 Archive/test_main.py '
             }
         }
         stage('Deploying'){
