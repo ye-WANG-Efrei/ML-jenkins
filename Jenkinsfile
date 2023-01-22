@@ -13,17 +13,17 @@ pipeline {
         }
         stage('Testing') {
             steps {
-              sh 'python3 Archive/test_main.py '
+              bat 'python3 Archive/test_main.py '
             }
         }
         stage('Deploying'){
             steps {
-              sh 'docker build -t jenkins:latest .'
+              bat 'docker build -t jenkins:latest .'
             }
         }
         stage('Running'){
             steps {
-              sh 'docker run -d -p 8003:8080 jenkins:latest'
+              bat 'docker run -d -p 8003:8080 jenkins:latest'
             }
         }
         stage('Login') {
