@@ -1,3 +1,3 @@
 # ML-jenkins
 
-# be triggered by any mofication
+# be triggered by any motification
