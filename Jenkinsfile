@@ -39,13 +39,18 @@ pipeline {
             }
         }
                          
-
+        stage('Login DockerHub') {
+            steps {
+                bat 'docker login -u wangyeee -p Wodemima0105.
+                /* bat 'echo %DOCKERHUB_CREDENTIALS_PSW%|docker login -u %DOCKERHUB_CREDENTIALS_USR% --password-stdin' */
+                }
+        }
 
         stage('Push image to Hub'){
             steps{
-                sshagent(credentials : ['JenkinsToDocker']){
-                    bat 'docker push jenkins:latest'
-                }
+
+                bat 'docker push jenkins:latest'
+
             }
         }
                          
