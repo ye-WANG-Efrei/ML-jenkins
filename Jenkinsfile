@@ -51,7 +51,7 @@ pipeline {
             }
         }
                          
-        stage ('Cleanup'{
+        stage ('Cleanup'){
             steps{
                 sshagent(credentials : ['JenkinsSSH']){
                     bat """
